@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaflet";
@@ -144,10 +143,11 @@ function Dashboard({ pontos, setPontos }) {
         </div>
       </div>
       {showForm && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center" style={{zIndex:9999}}>
           <form
-            className="bg-white rounded-lg p-6 shadow-lg w-full max-w-sm"
+            className="bg-white rounded-lg p-6 shadow-lg w-full max-w-sm relative"
             onSubmit={handleSave}
+            style={{zIndex:10000}}
           >
             <h3 className="font-bold mb-2 text-green-800">Cadastrar Ponto</h3>
             <input name="nome" className="border p-2 rounded w-full mb-2" placeholder="Nome do local" required />
@@ -218,7 +218,7 @@ export default function App() {
   const [pontos, setPontos] = useState([]);
 
   return (
-    <Router>
+    <Router basename="/ecomaps">
       <Routes>
         <Route path="/" element={!user ? <Login onLogin={setUser} /> : <Navigate to="/dashboard" />} />
         <Route path="/dashboard" element={user ? <Dashboard pontos={pontos} setPontos={setPontos} /> : <Navigate to="/" />} />
